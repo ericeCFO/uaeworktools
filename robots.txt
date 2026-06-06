@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /api/
 Disallow: /platform/
 
-Sitemap: /sitemap.xml
+Sitemap: https://uaeworktools.com/sitemap.xml

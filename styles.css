@@ -89,6 +89,13 @@ nav a {
 
 .hero-copy {
   max-width: 680px;
+  min-width: 0;
+}
+
+.hero > *,
+.calculator-shell > *,
+.formula-grid > * {
+  min-width: 0;
 }
 
 .eyebrow {
