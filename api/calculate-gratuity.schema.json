@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/api/calculate-gratuity.schema.json",
+  "title": "UAE gratuity calculator API contract",
+  "description": "Input and output shape for an agent-readable UAE end-of-service gratuity estimate.",
+  "type": "object",
+  "properties": {
+    "request": {
+      "type": "object",
+      "required": ["monthly_basic_salary_aed", "joining_date", "last_working_date"],
+      "properties": {
+        "monthly_basic_salary_aed": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Basic monthly wage in AED. Do not include allowances."
+        },
+        "joining_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "last_working_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "unpaid_absence_days": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Unpaid absence days to subtract from eligible service days. Cannot exceed total calendar service days."
+        },
+        "employment_context": {
+          "type": "string",
+          "default": "uae_private_sector_full_time_general",
+          "description": "Only the general UAE private-sector full-time context returns an AED estimate. Other contexts must return REVIEW_REQUIRED."
+        },
+        "alternative_savings_scheme": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, the API returns REVIEW_REQUIRED instead of an AED gratuity estimate."
+        },
+        "leaving_reason": {
+          "type": "string",
+          "enum": ["resigned", "terminated"],
+          "default": "resigned",
+          "description": "Used for explanatory notes. Under the current general UAE private-sector gratuity estimate, resignation and ordinary termination use the same statutory gratuity formula."
+        }
+      }
+    },
+    "response": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {"const": "OK"},
+            "eligible": {"type": "boolean"},
+            "service_years": {"type": "number"},
+            "complete_calendar_anniversary_years": {"type": "integer"},
+            "prorated_remaining_years": {"type": "number"},
+            "total_service_days": {"type": "integer"},
+            "unpaid_absence_days": {"type": "integer"},
+            "eligible_service_days": {"type": "integer"},
+            "daily_basic_wage_aed": {"type": "number"},
+            "first_five_years_gratuity_aed": {"type": "number"},
+            "after_five_years_gratuity_aed": {"type": "number"},
+            "cap_aed": {"type": "number"},
+            "cap_applied": {"type": "boolean"},
+            "leaving_reason": {"type": "string"},
+            "leaving_reason_note": {"type": "string"},
+            "estimated_gratuity_aed": {"type": "number"},
+            "disclaimer": {"type": "string"}
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {"const": "REVIEW_REQUIRED"},
+            "review_required": {"const": true},
+            "reason": {"type": "string"},
+            "details": {"type": "string"},
+            "estimated_gratuity_aed": {"type": "null"},
+            "disclaimer": {"type": "string"}
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "error": {"type": "string"}
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "jurisdiction": "UAE private sector general",
+  "lastGlobalReview": "2026-06-05",
+  "sources": [
+    {
+      "id": "uae-gov-eos-benefits",
+      "title": "UAE Government portal: End of service benefits for workers in the private sector",
+      "url": "https://u.ae/en/information-and-services/jobs/employment-in-the-private-sector/end-of-service-benefits-for-employees-in-the-private-sector",
+      "publisher": "UAE Government portal",
+      "lastReviewed": "2026-06-05"
+    }
+  ],
+  "rules": [
+    {
+      "id": "uae-private-sector-gratuity-general-v1",
+      "status": "live",
+      "effectiveDate": "2022-02-02",
+      "lastReviewed": "2026-06-05",
+      "sourceIds": ["uae-gov-eos-benefits"],
+      "summary": "General UAE private-sector gratuity estimate for eligible full-time foreign workers using basic wage.",
+      "inputs": ["monthlyBasicSalary", "joiningDate", "lastWorkingDate", "unpaidAbsenceDays", "employmentContext", "alternativeSavingsScheme", "leavingReason"],
+      "formula": [
+        "totalServiceDays = calendar days from joiningDate through lastWorkingDate",
+        "eligibleServiceDays = totalServiceDays - unpaidAbsenceDays",
+        "serviceYearUnits = complete calendar-anniversary years plus remaining eligible days prorated by the current anniversary-year length",
+        "dailyBasicWage = monthlyBasicSalary / 30",
+        "if eligibleServiceDays is less than the first calendar-anniversary year then gratuity = 0",
+        "tier1 = firstFiveAnniversaryYearUnits * 21 * dailyBasicWage",
+        "tier2 = laterAnniversaryYearUnits * 30 * dailyBasicWage",
+        "gratuity = min(tier1 + tier2, monthlyBasicSalary * 24)"
+      ],
+      "assumptions": [
+        "Basic wage is used, not total compensation.",
+        "Resignation and ordinary employer termination use the same base gratuity formula in this estimate.",
+        "Unpaid absence days are subtracted from eligible service days and cannot exceed total service days.",
+        "The total gratuity estimate is capped at 24 months of basic wage.",
+        "Unsupported employment contexts and alternative savings schemes return REVIEW_REQUIRED instead of an AED estimate."
+      ],
+      "unsupportedCases": [
+        "DIFC",
+        "ADGM",
+        "domestic workers",
+        "government employees",
+        "part-time arrangements",
+        "alternative savings schemes",
+        "misconduct dismissal",
+        "active disputes"
+      ]
+    },
+    {
+      "id": "uae-notice-period-general-draft",
+      "status": "needs_legal_review",
+      "lastReviewed": null,
+      "sourceIds": [],
+      "summary": "Notice period calculation rules need official-source validation before launch."
+    },
+    {
+      "id": "uae-notice-period-general-v1",
+      "status": "live",
+      "lastReviewed": "2026-06-06",
+      "sourceIds": ["uae-gov-eos-benefits"],
+      "summary": "General UAE private-sector notice estimate for standard post-probation and supported probation scenarios.",
+      "assumptions": [
+        "Post-probation notice is constrained to 30-90 days.",
+        "Payment in lieu is estimated from monthly basic salary divided by 30 and unserved notice days.",
+        "Unsupported employment contexts and special regimes return REVIEW_REQUIRED."
+      ]
+    },
+    {
+      "id": "uae-leave-salary-general-draft",
+      "status": "needs_legal_review",
+      "lastReviewed": null,
+      "sourceIds": [],
+      "summary": "Leave salary calculation rules need official-source validation before launch."
+    },
+    {
+      "id": "uae-leave-salary-general-v1",
+      "status": "live",
+      "lastReviewed": "2026-06-06",
+      "sourceIds": ["uae-gov-eos-benefits"],
+      "summary": "General UAE private-sector leave salary estimate for annual leave pay or unused leave final settlement.",
+      "assumptions": [
+        "Unused annual leave is estimated from accrued annual leave days less used leave days.",
+        "Final-settlement leave salary uses the supported leave salary engine and flags unsupported contexts.",
+        "Special free-zone, non-standard, and unsupported cases return REVIEW_REQUIRED."
+      ]
+    },
+    {
+      "id": "uae-final-settlement-general-v1",
+      "status": "live",
+      "lastReviewed": "2026-06-06",
+      "sourceIds": ["uae-gov-eos-benefits"],
+      "summary": "General UAE private-sector final settlement composition using gratuity, leave salary, notice compensation, unpaid salary, additions, and documented deductions.",
+      "assumptions": [
+        "The calculator composes reviewed gratuity, leave salary, and notice engines.",
+        "Manual deductions require documented legal authority or payroll recovery reason.",
+        "Unsupported contexts and component-level review flags bubble up as REVIEW_REQUIRED."
+      ]
+    },
+    {
+      "id": "uae-resignation-general-v1",
+      "status": "live",
+      "lastReviewed": "2026-06-06",
+      "sourceIds": ["uae-gov-eos-benefits"],
+      "summary": "General UAE private-sector resignation estimate for notice recovery, gratuity, leave salary, and final settlement components.",
+      "assumptions": [
+        "Resignation uses the approved final settlement engine with employee-resignation notice direction.",
+        "Employer recovery is surfaced separately and requires documented agreement or dispute process.",
+        "Special regimes, probation edge cases, and unsupported contexts return REVIEW_REQUIRED."
+      ]
+    },
+    {
+      "id": "uae-termination-benefits-general-v1",
+      "status": "live",
+      "lastReviewed": "2026-06-06",
+      "sourceIds": ["uae-gov-eos-benefits"],
+      "summary": "General UAE private-sector ordinary employer termination estimate for gratuity, leave salary, notice pay, unpaid salary, additions, and documented deductions.",
+      "assumptions": [
+        "Ordinary employer termination uses the approved final settlement engine with termination notice direction.",
+        "Employer short notice is shown as notice pay in lieu unless a lawful exception applies.",
+        "Article 44/misconduct, DIFC/ADGM, special free-zone, probation, undocumented deduction, and non-standard cases return REVIEW_REQUIRED."
+      ]
+    },
+    {
+      "id": "uae-overtime-general-draft",
+      "status": "needs_legal_review",
+      "lastReviewed": null,
+      "sourceIds": [],
+      "summary": "Overtime calculation rules need official-source validation before launch."
+    }
+  ]
+}

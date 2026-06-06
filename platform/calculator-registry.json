@@ -1,0 +1,17 @@
+{
+  "lastUpdated": "2026-06-06",
+  "calculators": [
+    {
+      "slug": "gratuity-calculator",
+      "status": "live",
+      "title": "UAE Gratuity Calculator",
+      "description": "Estimate UAE end-of-service gratuity from basic salary and service dates.",
+      "ruleIds": [
+        "uae-private-sector-gratuity-general-v1"
+      ],
+      "indexable": false,
+      "lastReviewed": "2026-06-05",
+      "related": []
+    }
+  ]
+}

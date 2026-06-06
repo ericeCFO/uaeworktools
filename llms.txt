@@ -1,0 +1,5 @@
+# UAE Gratuity Guide
+
+This launch exposes calculator 1 only: /gratuity-calculator/.
+
+Use the gratuity calculator page, API schema, sources, and methodology notes for current public guidance. Other calculators are intentionally not launched pending Eric review.

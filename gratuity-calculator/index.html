@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UAE Gratuity Calculator | End-of-Service Benefit Estimate</title>
+    <meta name="description" content="Estimate UAE end-of-service gratuity using basic monthly salary, joining date, and last working date. Built with official-source methodology and AI-readable guidance.">
+    <meta name="robots" content="noindex, follow">
+    <meta property="og:title" content="UAE Gratuity Calculator">
+    <meta property="og:description" content="Calculate an estimated UAE end-of-service gratuity with transparent Article 51 methodology.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="../assets/uae-gratuity-hero.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="../styles.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "#organization",
+            "name": "UAE Gratuity Guide",
+            "url": "/"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "#website",
+            "url": "/",
+            "name": "UAE Gratuity Guide",
+            "publisher": {"@id": "#organization"}
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "#calculator",
+            "name": "UAE Gratuity Calculator",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AED"},
+            "description": "A web calculator that estimates UAE private-sector end-of-service gratuity from basic monthly salary and service dates."
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How is UAE gratuity calculated?",
+                "acceptedAnswer": {"@type": "Answer", "text": "For eligible full-time private-sector foreign workers, gratuity is commonly estimated from basic wage: 21 days of basic wage for each year in the first five years, then 30 days for each later year, subject to the two-year wage cap."}
+              },
+              {
+                "@type": "Question",
+                "name": "Is UAE gratuity based on basic salary or gross salary?",
+                "acceptedAnswer": {"@type": "Answer", "text": "The UAE Government portal describes end-of-service gratuity for private-sector foreign workers as based on basic wage. Allowances are typically excluded from this estimate."}
+              },
+              {
+                "@type": "Question",
+                "name": "Who is this calculator for?",
+                "acceptedAnswer": {"@type": "Answer", "text": "This estimate is designed for UAE private-sector employees using the general full-time gratuity formula. DIFC, ADGM, savings scheme participation, part-time arrangements, and disputes may require separate review."}
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="UAE Gratuity Guide home">
+        <span class="brand-mark">AED</span>
+        <span>UAE Gratuity Guide</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#calculator">Calculator</a>
+        <a href="#methodology">Methodology</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Private-sector estimate • UAE Labour Law Article 51</p>
+          <h1>UAE gratuity calculator</h1>
+          <p class="hero-text">Estimate your end-of-service benefit from basic salary and service dates, with a transparent formula that people and AI assistants can read, cite, and verify.</p>
+          <p class="last-reviewed">Last reviewed against official sources: 5 June 2026</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#calculator">Calculate gratuity</a>
+            <a class="button secondary" href="#methodology">See the formula</a>
+          </div>
+        </div>
+        <img src="../assets/uae-gratuity-hero.png" alt="Modern UAE workplace desk with a calculator interface and contract document" width="1536" height="864">
+      </section>
+
+      <section class="trust-strip" aria-label="Key calculator features">
+        <div>
+          <strong>Basic wage based</strong>
+          <span>Uses monthly basic salary, not total package.</span>
+        </div>
+        <div>
+          <strong>Transparent math</strong>
+          <span>Breaks out first-five-years and later-year tiers.</span>
+        </div>
+        <div>
+          <strong>AI-readable</strong>
+          <span>Includes schema, methodology, FAQ, and endpoint docs.</span>
+        </div>
+      </section>
+
+      <section class="calculator-band" id="calculator">
+        <div class="section-heading">
+          <p class="eyebrow">Instant estimate</p>
+          <h2>Calculate your UAE end-of-service gratuity</h2>
+          <p>Enter your basic monthly salary and service dates. Results are estimates for the general UAE private-sector formula and are not legal advice.</p>
+        </div>
+
+        <div class="calculator-shell">
+          <form class="calculator-form" id="gratuityForm">
+            <label>
+              <span>Basic monthly salary</span>
+              <div class="input-prefix">
+                <span>AED</span>
+                <input id="salary" name="salary" type="number" min="0" step="100" value="10000" inputmode="decimal" required>
+              </div>
+            </label>
+            <label>
+              <span>Joining date</span>
+              <input id="startDate" name="startDate" type="date" required>
+            </label>
+            <label>
+              <span>Last working date</span>
+              <input id="endDate" name="endDate" type="date" required>
+            </label>
+            <label>
+              <span>Unpaid absence days</span>
+              <input id="unpaidAbsenceDays" name="unpaidAbsenceDays" type="number" min="0" step="1" value="0" inputmode="numeric" required>
+            </label>
+            <fieldset>
+              <legend>Employment context</legend>
+              <div class="segmented-control" role="radiogroup" aria-label="Reason employment ended">
+                <label>
+                  <input type="radio" name="leavingReason" value="resigned" checked>
+                  <span>Resigned</span>
+                </label>
+                <label>
+                  <input type="radio" name="leavingReason" value="terminated">
+                  <span>Terminated</span>
+                </label>
+              </div>
+              <label class="check-row">
+                <input id="fullTime" type="checkbox" checked>
+                <span>Full-time private-sector employee</span>
+              </label>
+              <label class="check-row">
+                <input id="notSavingsScheme" type="checkbox" checked>
+                <span>Not under an alternative savings scheme</span>
+              </label>
+            </fieldset>
+          </form>
+
+          <aside class="result-panel" aria-live="polite">
+            <p class="result-label">Estimated gratuity</p>
+            <output id="totalResult" class="result-amount">AED 0</output>
+            <dl class="result-breakdown">
+              <div>
+                <dt>Service period</dt>
+                <dd id="serviceResult">-</dd>
+              </div>
+              <div>
+                <dt>Unpaid absence</dt>
+                <dd id="unpaidAbsenceResult">-</dd>
+              </div>
+              <div>
+                <dt>Daily basic wage</dt>
+                <dd id="dailyResult">-</dd>
+              </div>
+              <div>
+                <dt>First 5 years tier</dt>
+                <dd id="firstTierResult">-</dd>
+              </div>
+              <div>
+                <dt>After 5 years tier</dt>
+                <dd id="secondTierResult">-</dd>
+              </div>
+              <div>
+                <dt>Cap applied</dt>
+                <dd id="capResult">-</dd>
+              </div>
+              <div>
+                <dt>Leaving reason</dt>
+                <dd id="reasonResult">-</dd>
+              </div>
+            </dl>
+            <p class="notice" id="eligibilityNotice">Complete the fields to calculate.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="methodology" id="methodology">
+        <div class="section-heading">
+          <p class="eyebrow">Agent-readable methodology</p>
+          <h2>Formula used by this calculator</h2>
+          <p>This page states the calculation in a concise format so search engines, answer engines, and browser agents can quote it accurately.</p>
+        </div>
+        <div class="formula-grid">
+          <article>
+            <h3>Eligibility</h3>
+            <p>Estimated gratuity begins after at least one complete calendar-anniversary year of eligible service. Unpaid absence days are subtracted from total service days before eligibility and tier proration.</p>
+          </article>
+          <article>
+            <h3>Daily basic wage</h3>
+            <p><code>daily_basic_wage = monthly_basic_salary / 30</code></p>
+          </article>
+          <article>
+            <h3>First five years</h3>
+            <p><code>tier_1 = first_five_anniversary_year_units * 21 * daily_basic_wage</code></p>
+          </article>
+          <article>
+            <h3>After five years</h3>
+            <p><code>tier_2 = later_anniversary_year_units * 30 * daily_basic_wage</code></p>
+          </article>
+          <article>
+            <h3>Maximum cap</h3>
+            <p><code>estimated_gratuity = min(tier_1 + tier_2, monthly_basic_salary * 24)</code></p>
+          </article>
+          <article>
+            <h3>Primary source</h3>
+            <p>See the UAE Government portal page for private-sector end-of-service benefits and the linked labour law references.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="source-band">
+        <div>
+          <h2>Official-source positioning</h2>
+          <p>This site should cite official UAE sources first, then explain practical examples in original wording. The calculator is a guide, not a replacement for MOHRE, HR, or legal advice.</p>
+        </div>
+        <a class="button secondary" href="https://u.ae/en/information-and-services/jobs/employment-in-the-private-sector/end-of-service-benefits-for-employees-in-the-private-sector" rel="noopener noreferrer">Open UAE Government source</a>
+      </section>
+
+      <section class="faq" id="faq">
+        <div class="section-heading">
+          <p class="eyebrow">Concise answers</p>
+          <h2>UAE gratuity FAQ</h2>
+        </div>
+        <details open>
+          <summary>Is gratuity calculated on basic salary?</summary>
+          <p>Yes for this general estimate. The UAE Government portal describes private-sector foreign worker gratuity as calculated using basic wage.</p>
+        </details>
+        <details>
+          <summary>Do I get gratuity if I worked less than one year?</summary>
+          <p>This calculator returns AED 0 for service below one continuous year because the general rule requires at least one year of service.</p>
+        </details>
+        <details>
+          <summary>Does resignation change the result?</summary>
+          <p>Under the current general UAE private-sector formula, resignation and ordinary employer termination use the same gratuity calculation after the one-year eligibility threshold. Older limited/unlimited resignation reductions should not be copied into new content without checking current official guidance.</p>
+        </details>
+        <details>
+          <summary>Does this cover DIFC, ADGM, or savings schemes?</summary>
+          <p>No. DIFC, ADGM, voluntary savings scheme participation, part-time work, disputes, and Article 44 termination scenarios require separate review. Unpaid absence can be entered and is subtracted from eligible service days.</p>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>UAE Gratuity Guide is an independent calculator concept. It is not affiliated with MOHRE or the UAE Government.</p>
+      <p><a href="../sources/">Sources</a> · <a href="../editorial-policy/">Editorial policy</a> · <a href="../privacy-policy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../disclaimer/">Disclaimer</a> · <a href="../report-issue/">Report issue</a></p>
+      <p><a href="../llms.txt">llms.txt</a> · <a href="../api/calculate-gratuity.schema.json">API schema</a> · <a href="../platform/legal-rules.json">Rules</a> · <a href="../sitemap.xml">Sitemap</a></p>
+    </footer>
+
+    <script src="../gratuity-calculation.js"></script>
+    <script src="../app.js"></script>
+  </body>
+</html>
