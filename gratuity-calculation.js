@@ -55,8 +55,27 @@
     return daysBetweenExclusive(startInclusive, addDays(endInclusive, 1));
   }
 
+  function exactCalendarAnniversaryYears(startDate, endDate) {
+    if (endDate < startDate) {
+      return 0;
+    }
+
+    let years = Math.max(0, endDate.getUTCFullYear() - startDate.getUTCFullYear());
+    let anniversary = addCalendarYears(startDate, years);
+
+    if (anniversary > endDate) {
+      years -= 1;
+      anniversary = addCalendarYears(startDate, years);
+    }
+
+    return years > 0 && anniversary.getTime() === endDate.getTime() ? years : 0;
+  }
+
   function calculateServiceBreakdown(startDate, endDate, unpaidAbsenceDays) {
-    const grossServiceDays = daysBetweenInclusive(startDate, endDate);
+    const anniversaryYears = exactCalendarAnniversaryYears(startDate, endDate);
+    const grossServiceDays = anniversaryYears > 0
+      ? daysBetweenExclusive(startDate, endDate)
+      : daysBetweenInclusive(startDate, endDate);
     const eligibleServiceDays = grossServiceDays - unpaidAbsenceDays;
     let remainingEligibleDays = eligibleServiceDays;
     let completeYears = 0;
@@ -216,6 +235,7 @@
     calculateGratuity,
     calculateServiceBreakdown,
     daysBetweenInclusive,
+    exactCalendarAnniversaryYears,
     parseIsoDate,
     formatIsoDate
   };

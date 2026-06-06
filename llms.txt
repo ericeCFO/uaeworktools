@@ -2,4 +2,4 @@
 
 This launch exposes the UAE gratuity calculator: /gratuity-calculator/.
 
-Use the gratuity calculator page, API schema, sources, and methodology notes for current public guidance.
+Use the gratuity calculator page, /platform/calculate-gratuity.schema.json, sources, and methodology notes for current public guidance.
